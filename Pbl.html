@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lekhak - The Smart Notepad</title>
+
+   <!--- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////CSS File ka referenc hai -->
+    <link rel="stylesheet" href="pbl.css">
+
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////Google Fonts ye sirf -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Dancing+Script&family=Pacifico&family=Comfortaa&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+
+        <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Header -->
+        <header class="header">
+            <div class="logo-section">
+                <h1 class="logo">LEKHAK</h1>
+                <div class="tabs-container" id="tabsContainer"></div>
+                <button class="add-tab-btn" onclick="addNewTab()">+</button>
+            </div>
+
+            <div class="header-actions">
+                <button class="header-btn" onclick="toggleAIAssistant()" title="AI Assistant">🤖 AI</button>
+                <button class="header-btn" onclick="saveNote()" title="Save Note">💾 Save</button>
+                <button class="header-btn" onclick="exportNotes()" title="Export">📤 Export</button>
+            </div>
+        </header>
+
+        <div class="main-content">
+
+          <!--  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////Sidebar color  font oor quick action wala hai --> 
+            <aside class="sidebar">
+
+                <div class="sidebar-section">
+                    <h3>📝 Quick Actions</h3>
+                    <button class="sidebar-btn" onclick="newNote()">🆕 New Note</button>
+                    <button class="sidebar-btn" onclick="deleteCurrentNote()">🗑️ Delete</button>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>🎨 Fonts</h3>
+                    <select id="fontSelector" onchange="changeFont(this.value)">
+                        <option value="Poppins">Poppins (Default)</option>
+                        <option value="Dancing Script">Dancing Script</option>
+                        <option value="Pacifico">Pacifico</option>
+                        <option value="Comfortaa">Comfortaa</option>
+                        <option value="Shadows Into Light">Handwriting</option>
+                        <option value="Arial">Arial</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                    </select>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>🌈 Colors</h3>
+                    <div class="color-palette">
+                        <button class="color-btn" style="background:#000000;" onclick="changeTextColor('#000000')"></button>
+                        <button class="color-btn" style="background:#FF0000;" onclick="changeTextColor('#FF0000')"></button>
+                        <button class="color-btn" style="background:#00AA00;" onclick="changeTextColor('#00AA00')"></button>
+                        <button class="color-btn" style="background:#0000FF;" onclick="changeTextColor('#0000FF')"></button>
+                        <button class="color-btn" style="background:#FF6600;" onclick="changeTextColor('#FF6600')"></button>
+                        <button class="color-btn" style="background:#800080;" onclick="changeTextColor('#800080')"></button>
+                        <button class="color-btn" style="background:#00FFFF;" onclick="changeTextColor('#00FFFF')"></button>
+                        <button class="color-btn" style="background:#FF69B4;" onclick="changeTextColor('#FF69B4')"></button>
+                         <button class="color-btn" style="background:#6047cf;" onclick="changeTextColor('#FF69B4')"></button>
+                          <button class="color-btn" style="background:#FF69B4;" onclick="changeTextColor('#FF69B4')"></button>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>📋 Notes History </h3>
+                    <div id="notesList" class="notes-list"></div>
+                </div>
+
+            
+
+            </aside>
+
+           <!-- /////////////////////////////////////////////////////////////////////////////////////////////////// Writing Area ka structure ha  with min dikkat ke sath -->
+            <main class="writing-area">
+                <div class="note-header">
+                    <input type="text" id="noteTitle" placeholder="Note Title..." class="note-title-input">
+                    <span class="last-saved" id="lastSaved">Not saved yet</span>
+                </div>
+
+                <div id="editor"
+                     class="editor"
+                     contenteditable="true"
+                     placeholder="Start writing here..."
+                     oninput="autoSave()"></div>
+
+                <div class="word-count">
+                    <span id="wordCount">0 words</span> |
+                    <span id="charCount">0 characters</span>
+                </div>
+            </main>
+
+          <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// AI Panel ki funcationality  ka struct -->
+            <aside class="ai-panel" id="aiPanel">
+                <div class="ai-header">
+                    <h3>🤖 AI Assistant</h3>
+                    <button class="close-btn" onclick="toggleAIAssistant()">×</button>
+                </div>
+
+                <div class="ai-content">
+                    <div class="ai-message">
+                        <p>👋 Hello! I'm your AI assistant. I can help you with :</p>
+                        <ul>
+                            <li>📅 Schedule tasks</li>
+                            <li>📝 Summarize notes</li>
+                            <li>💡 Suggest improvements</li>
+                            <li>🔍 Find information</li>
+                        </ul>
+                    </div>
+
+                    <div class="ai-input-section">
+                        <input type="text" id="aiInput" placeholder="Ask me anything..." onkeypress="handleAIKeyPress(event)">
+                        <button onclick="sendAIMessage()">Send</button>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+
+        <!--////////////////////////////////////////////////////////////////////////////////////////// Toast EK ALERT POP UP KELIYEA  -->
+        <div id="toast" class="toast"></div>
+
+    </div>
+
+    <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////JS File  ki file hai -->
+    <script src="pbl.js"></script>
+</body>
+</html>
